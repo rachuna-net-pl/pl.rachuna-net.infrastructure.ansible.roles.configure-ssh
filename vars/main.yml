@@ -1,0 +1,23 @@
+---
+var_sshd_config_path: /etc/ssh/sshd_config
+var_sshd_service: >-
+  {%- if ansible_os_family == 'Debian' -%}
+    ssh
+  {%- elif ansible_os_family == 'RedHat' -%}
+    sshd
+  {%- elif ansible_os_family == 'Alpine' -%}
+    sshd
+  {%- else -%}
+    sshd
+  {%- endif -%}
+
+var_sshd_package: >-
+  {%- if ansible_os_family == 'Debian' -%}
+    ssh
+  {%- elif ansible_os_family == 'RedHat' -%}
+    openssh-server
+  {%- elif ansible_os_family == 'Alpine' -%}
+    openssh
+  {%- else -%}
+    openssh-server
+  {%- endif -%}

@@ -1,0 +1,39 @@
+---
+- name: "⚙️ Config SSH server"
+  block:
+    - name: "⚙️  Set SSH Port"
+      lineinfile:
+        dest: "{{ var_sshd_config_path }}"
+        regexp: '^(#Port|Port)'
+        line: "Port {{ sshd_config.port }}"
+        state: present
+      notify: "🚨 Restart SSHD"
+
+    - name: "⚙️  Block Password Authentication ssh"
+      lineinfile:
+        dest: "{{ var_sshd_config_path }}"
+        regexp: '^(#PasswordAuthentication|PasswordAuthentication)'
+        line: "PasswordAuthentication {{ sshd_config.password_authentication }}"
+        state: present
+      notify: "🚨 Restart SSHD"
+
+    - name: "⚙️  Block login as root"
+      lineinfile:
+        dest: "{{ var_sshd_config_path }}"
+        regexp: '^(#PermitRootLogin|PermitRootLogin)'
+        line: "PermitRootLogin {{ sshd_config.permit_root_login }}"
+        state: present
+      notify: "🚨 Restart SSHD"
+
+    - name: "⚙️  Change mode file"
+      ansible.builtin.file:
+        path: "{{ var_sshd_config_path }}"
+        owner: root
+        group: root
+        mode: '0644'
+
+  rescue:
+    - name: "❌ Print error if SSH server configuration fails"
+      failed_when: true
+      ansible.builtin.debug:
+        msg: "❌ SSH server configuration failed! Check logs."

@@ -1,0 +1,27 @@
+---
+- name: "💾 Install ssh server"
+  block:
+    - name: "💾 [Debian] Install ssh"
+      apt:
+        name: ssh
+        state: present
+        update_cache: true
+      when: ansible_os_family == "Debian"
+
+    - name: "💾 [Alpine] Install ssh"
+      apk:
+        name: openssh
+        state: present
+      when: ansible_os_family == "Alpine"
+
+    - name: "💾 [RedHat] Install ssh"
+      yum:
+        name: ["openssh-server", "openssh-clients"]
+        state: present
+      when: ansible_os_family == "RedHat"
+
+  rescue:
+    - name: "❌ Print error if packages for ssh server installation fails"
+      failed_when: true
+      ansible.builtin.debug:
+        msg: "❌ SSH server installation failed! Check logs."

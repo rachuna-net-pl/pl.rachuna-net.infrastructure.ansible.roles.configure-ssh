@@ -1,0 +1,7 @@
+---
+- name: "🚨 Restart SSHD"
+  service:
+    name: "{{ var_sshd_service }}"
+    state: restarted
+    enabled: true
+  register: restart_sshd
