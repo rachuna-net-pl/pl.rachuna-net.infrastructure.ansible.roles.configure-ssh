@@ -3,25 +3,46 @@ galaxy_info:
   role_name: configure_ssh
   namespace: pl_rachuna_net
   author: "Maciej Rachuna"
-  description: "Ansible Role do konfiguracji SSH na serwerach Linux."
+  description: "Ansible Role do bezpiecznej konfiguracji SSH na serwerach Linux. Instaluje serwer SSH, konfiguruje bezpieczne ustawienia (wyłącza uwierzytelnianie hasłem, blokuje logowanie root) i zarządza usługą SSH."
+  company: "rachuna.net"
   license: "MIT"
   min_ansible_version: "2.9"
+
+  # Dodatkowe metadane
+  issue_tracker_url: "https://github.com/pl-rachuna-net/ansible-roles/issues"
+  github_branch: "main"
 
   platforms:
     - name: Debian
       versions:
-        - all
+        - "10"
+        - "11"
+        - "12"
     - name: Ubuntu
       versions:
-        - all
+        - "18.04"
+        - "20.04"
+        - "22.04"
+        - "24.04"
     - name: Alpine
       versions:
-        - all
+        - "3.15"
+        - "3.16"
+        - "3.17"
+        - "3.18"
+        - "3.19"
     - name: EL
       versions:
         - "7"
         - "8"
         - "9"
+    - name: Fedora
+      versions:
+        - "37"
+        - "38"
+        - "39"
+        - "40"
+
   galaxy_tags:
     - ssh
     - security
@@ -29,5 +50,9 @@ galaxy_info:
     - openssh
     - server
     - linux
+    - configuration
+    - system
+    - administration
+    - infrastructure
 
 dependencies: []
